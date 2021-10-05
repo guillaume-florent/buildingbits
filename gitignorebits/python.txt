@@ -1,0 +1,7 @@
+# Compiled Python bytecode
+*.py[cod]
+
+# build related
+/dist/
+/build/
+/pilot.egg-info/

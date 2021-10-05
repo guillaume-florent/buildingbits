@@ -1,0 +1,34 @@
+# Make sure no target has the same name as a folder (docs, tests, examples, bin, data ...)
+
+# Obviously requires pytest to be installed
+buildingbits:
+	wget https://raw.githubusercontent.com/guillaume-florent/buildingbits/main/buildingbits/buildingbits.py
+
+# Obviously requires pytest to be installed
+tests_:
+	pytest --cov={{ project_name }} --benchmark-autosave tests/
+
+ci_docker:
+	docker build -t {{ project_name }}_docker_image .
+	docker run -it --rm --name {{ project_name }}_docker_env {{ project_name }}_docker_image /bin/bash
+
+format:
+	- isort . --check --diff --color --profile black
+	black . --diff --color
+
+checks:
+	prospector
+	# Make sure the prospector options and profile are right
+
+username=${USER}
+user:=$(shell id -u)
+home=${HOME}
+
+run_docker:
+	docker build -t {{ project_name }}_docker_image .
+	docker run -it --rm --user=${user} -e USER=${username} \
+	--volume="${home}:${home}" \
+	--volume="/etc/group:/etc/group:ro" \
+	--volume="/etc/passwd:/etc/passwd:ro" \
+	--volume="/etc/shadow:/etc/shadow:ro" \
+	--volume="/etc/sudoers.d:/etc/sudoers.d:ro" --name {{ project_name }}_container {{ project_name }}_docker_image /bin/bash
