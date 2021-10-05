@@ -1,0 +1,4 @@
+# Python OCC 7.5.1 and PythonOCC UI Packages
+# ------------------------------------------
+
+RUN conda install -c conda-forge -y pythonocc-core=7.5.1 wxpython pyqt

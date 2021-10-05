@@ -1,0 +1,11 @@
+# Common infrastructure
+# ---------------------
+
+RUN apt-get update -q && \
+    apt-get install -q -y --no-install-recommends make && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN pip install prospector[with_everything]
+RUN pip install pytest pytest-cov pytest-benchmark[histogram] isort[colors] black hypothesis
+RUN pip install poetry
+RUN pip install build

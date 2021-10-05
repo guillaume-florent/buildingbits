@@ -1,0 +1,71 @@
+# This will enable almost every single warning
+
+ignore-patterns:
+  - (^|/)\..+
+
+ignore-paths:
+  - docs
+  - build
+  - dist
+
+test-warnings: true
+
+# ---- Defaults ----
+
+pylint:
+  run: true
+  disable:
+    - fixme
+    - bad-continuation
+
+  options:
+    max-locals: 15
+    max-returns: 6
+    max-branches: 12
+    max-statements: 50
+    max-parents: 7
+    max-attributes: 7
+    min-public-methods: 2
+    max-public-methods: 20
+    max-module-lines: 1000
+    max-line-length: 99
+
+pep8:
+  full: true
+  options:
+    max-line-length: 99
+    single-line-if-stmt: n
+
+mccabe:
+  run: true
+  options:
+    max-complexity: 10
+
+dodgy:
+  run: true
+
+pep257:
+  run: true
+  disable:
+    - D000
+
+# ---- Optionals ----
+
+pyroma:
+  run: true
+#  disable:
+#     - PYR19
+#     - PYR16
+
+vulture:
+     run: true
+
+frosted:
+     run: false
+
+# Issue: untyped functions go undetected
+mypy:
+  run: true
+
+bandit:
+  run: false

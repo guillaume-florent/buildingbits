@@ -1,0 +1,3 @@
+FROM ubuntu:20.04
+
+LABEL maintainer="Guillaume Florent <florentsailing@gmail.com>"
