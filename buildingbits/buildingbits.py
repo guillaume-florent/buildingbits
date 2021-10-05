@@ -25,6 +25,10 @@ SUPPORTED_DOCKERFILE_KEYS = ["base", "miniconda", "occ_0.18", "occ_7.5", "common
 SUPPORTED_GITIGNORE_KEYS = ["generic", "python", "pycharm", "pytest", "pytest-cov", "pytest-benchmark", "mypy"]
 
 
+def trace(msg):
+    print(msg)
+
+
 def download(url: str, file_name: str) -> None:
     with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
         data = response.read()  # a `bytes` object
@@ -37,6 +41,7 @@ def file_from_template(keys, url, template_name, output_file):
     # 3 - Use the dict to template the Dockerfile.template
     dict = {}
     for k in keys:
+        trace(f"Reading : {url}/{k}.txt")
         dict[k] = urllib.request.urlopen(f"{url}/{k}.txt").read().decode("utf-8")
 
     file_loader = FileSystemLoader('.')  # directory of template file
@@ -50,27 +55,38 @@ def file_from_template(keys, url, template_name, output_file):
 
 if __name__ == "__main__":
     # download .prospector.yaml
+    trace("Downloading .prospector.yaml ...")
     download(PROSPECTOR_YAML_URL, PROSPECTOR_YAML_FILENAME)
+    trace(" ... done.")
 
     # download setup.py
+    trace("Downloading setup.py ...")
     download(SETUP_PY_URL, SETUP_PY_FILENAME)
+    trace(" ... done.")
 
     # download Makefile.template
+    trace("Downloading Makefile.template ...")
     download(MAKEFILE_TEMPLATE_URL, MAKEFILE_TEMPLATE_FILENAME)
+    trace(" ... done.")
 
-    # create Dockerfile.bck from local template
+    # create Dockerfile from local template
+    trace("Creating Dockerfile from template ...")
     file_from_template(keys=SUPPORTED_DOCKERFILE_KEYS,
                        url=DOCKERFILEBITS_URL,
                        template_name="Dockerfile.template",
                        output_file="Dockerfile")
+    trace(" ... done.")
 
     # create .gitignore from local template
+    trace("Creating .gitignore from template ...")
     file_from_template(keys=SUPPORTED_GITIGNORE_KEYS,
                        url=GITIGNOREBITS_URL,
                        template_name="gitignore.template",
                        output_file=".gitignore")
+    trace(" ... done.")
 
     # overwrite the initial Makefile
+    trace("Creating a new Makefile from template ...")
     file_loader = FileSystemLoader('.')  # directory of template file
     env = Environment(loader=file_loader)
 
@@ -78,4 +94,5 @@ if __name__ == "__main__":
     output = template.render(project_name=basename(dirname(__file__)))
     with open("Makefile", 'w') as file_:
         file_.write(output)
+    trace(" ... done.")
 
