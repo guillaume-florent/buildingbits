@@ -22,7 +22,7 @@ MAKEFILE_TEMPLATE_FILENAME = "Makefile.template"
 MAKEFILE_TEMPLATE_URL = f"{FILES_URL}/{MAKEFILE_TEMPLATE_FILENAME}"
 
 SUPPORTED_DOCKERFILE_KEYS = ["base", "miniconda", "occ_0.18", "occ_7.5", "common_infrastructure"]
-SUPPORTED_GITIGNORE_KEYS = ["generic", "python", "pycharm", "pytest", "pytest-cov", "pytest-benchmark", "mypy"]
+SUPPORTED_GITIGNORE_KEYS = ["generic", "python", "pycharm", "pytest", "pytest_cov", "pytest_benchmark", "mypy"]
 
 
 def trace(msg):
