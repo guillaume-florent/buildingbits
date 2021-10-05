@@ -107,13 +107,13 @@ if __name__ == "__main__":
 
     # overwrite the initial Makefile
     trace("Creating a new Makefile from template ...")
-    file_loader = FileSystemLoader('.')  # directory of template file
+    file_loader = FileSystemLoader(".")  # directory of template file
     env = Environment(loader=file_loader)
 
     template = env.get_template("Makefile.template")  # load template file
     project_name = basename(os.getcwd())
     trace(f"Project name: {project_name}")
     output = template.render(project_name=project_name)
-    with open("Makefile", 'w', encoding="utf-8") as file_:
+    with open("Makefile", "w", encoding="utf-8") as file_:
         file_.write(output)
     trace(" ... done.")
