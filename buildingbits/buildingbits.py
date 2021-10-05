@@ -10,7 +10,7 @@ from jinja2 import Environment, FileSystemLoader
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
 FILES_URL = f"{URL}/files"
 DOCKERFILEBITS_URL = f"{URL}/dockerfilebits"
-DOCKERFILEBITS_URL = f"{URL}/gitignorebits"
+GITIGNOREBITS_URL = f"{URL}/gitignorebits"
 
 PROSPECTOR_YAML_FILENAME = ".prospector.yaml"
 PROSPECTOR_YAML_URL = f"{FILES_URL}/{PROSPECTOR_YAML_FILENAME}"
