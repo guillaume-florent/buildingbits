@@ -1,7 +1,7 @@
 # Make sure no target has the same name as a folder (docs, tests, examples, bin, data ...)
 
 buildingbits:
-	wget https://raw.githubusercontent.com/guillaume-florent/buildingbits/main/buildingbits/buildingbits.py
+	curl https://raw.githubusercontent.com/guillaume-florent/buildingbits/main/buildingbits/buildingbits.py > buildingbits.py
 	python buildingbits.py
 
 # Obviously requires pytest to be installed
