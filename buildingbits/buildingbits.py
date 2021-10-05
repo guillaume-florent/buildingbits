@@ -2,8 +2,8 @@
 # coding: utf-8
 
 r"""Buildingbits script."""
-
-from os.path import basename, dirname
+import os
+from os.path import basename
 import urllib.request
 from jinja2 import Environment, FileSystemLoader
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     env = Environment(loader=file_loader)
 
     template = env.get_template("Makefile.template")  # load template file
-    project_name = basename(dirname(__file__))
+    project_name = basename(os.getcwd())
     trace(f"Project name: {project_name}")
     output = template.render(project_name=project_name)
     with open("Makefile", 'w') as file_:
