@@ -33,10 +33,12 @@ run_docker:
 	--volume="/etc/shadow:/etc/shadow:ro" \
 	--volume="/etc/sudoers.d:/etc/sudoers.d:ro" --name {{ project_name }}_container {{ project_name }}_docker_image /bin/bash
 
-clean:
+clean_all: clean_but_gitignore
+	rm .gitignore
+
+clean_but_gitignore:
 	rm buildingbits.py
 	rm .prospector.yaml
-	rm .gitignore
 	rm Dockerfile
 	rm Makefile.template
 	rm setup.py

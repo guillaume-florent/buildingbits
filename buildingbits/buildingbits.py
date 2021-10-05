@@ -2,9 +2,11 @@
 # coding: utf-8
 
 r"""Buildingbits script."""
+
 import os
-from os.path import basename
 import urllib.request
+from os.path import basename
+
 from jinja2 import Environment, FileSystemLoader
 
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
@@ -21,9 +23,22 @@ SETUP_PY_URL = f"{FILES_URL}/{SETUP_PY_FILENAME}"
 MAKEFILE_TEMPLATE_FILENAME = "Makefile.template"
 MAKEFILE_TEMPLATE_URL = f"{FILES_URL}/{MAKEFILE_TEMPLATE_FILENAME}"
 
-SUPPORTED_DOCKERFILE_KEYS = ["base", "miniconda", "occ_0.18", "occ_7.5", "common_infrastructure"]
-SUPPORTED_GITIGNORE_KEYS = ["generic", "python", "pycharm", "pytest", "pytest_cov",
-                            "pytest_benchmark", "mypy"]
+SUPPORTED_DOCKERFILE_KEYS = [
+    "base",
+    "miniconda",
+    "occ_0.18",
+    "occ_7.5",
+    "common_infrastructure",
+]
+SUPPORTED_GITIGNORE_KEYS = [
+    "generic",
+    "python",
+    "pycharm",
+    "pytest",
+    "pytest_cov",
+    "pytest_benchmark",
+    "mypy",
+]
 
 
 def trace(msg):
@@ -33,7 +48,7 @@ def trace(msg):
 
 def download(url: str, file_name: str) -> None:
     r"""Download a file."""
-    with urllib.request.urlopen(url) as response, open(file_name, 'wb') as out_file:
+    with urllib.request.urlopen(url) as response, open(file_name, "wb") as out_file:
         data = response.read()  # a `bytes` object
         out_file.write(data)
 
@@ -45,12 +60,12 @@ def file_from_template(keys, url, template_name, output_file):
         trace(f"Reading : {url}/{k}.txt")
         d[k] = urllib.request.urlopen(f"{url}/{k}.txt").read().decode("utf-8")
 
-    file_loader = FileSystemLoader('.')  # directory of template file
+    file_loader = FileSystemLoader(".")  # directory of template file
     env = Environment(loader=file_loader)
 
     template = env.get_template(template_name)  # load template file
     output = template.render(**d)
-    with open(output_file, 'w', encoding="utf-8") as file_:
+    with open(output_file, "w", encoding="utf-8") as file_:
         file_.write(output)
 
 
@@ -72,18 +87,22 @@ if __name__ == "__main__":
 
     # create Dockerfile from local template
     trace("Creating Dockerfile from template ...")
-    file_from_template(keys=SUPPORTED_DOCKERFILE_KEYS,
-                       url=DOCKERFILEBITS_URL,
-                       template_name="Dockerfile.template",
-                       output_file="Dockerfile")
+    file_from_template(
+        keys=SUPPORTED_DOCKERFILE_KEYS,
+        url=DOCKERFILEBITS_URL,
+        template_name="Dockerfile.template",
+        output_file="Dockerfile",
+    )
     trace(" ... done.")
 
     # create .gitignore from local template
     trace("Creating .gitignore from template ...")
-    file_from_template(keys=SUPPORTED_GITIGNORE_KEYS,
-                       url=GITIGNOREBITS_URL,
-                       template_name="gitignore.template",
-                       output_file=".gitignore")
+    file_from_template(
+        keys=SUPPORTED_GITIGNORE_KEYS,
+        url=GITIGNOREBITS_URL,
+        template_name="gitignore.template",
+        output_file=".gitignore",
+    )
     trace(" ... done.")
 
     # overwrite the initial Makefile
