@@ -17,7 +17,7 @@ format:
 	black . --diff --color
 
 checks:
-	prospector
+	- prospector
 	# Make sure the prospector options and profile are right
 
 username=${USER}
@@ -32,3 +32,11 @@ run_docker:
 	--volume="/etc/passwd:/etc/passwd:ro" \
 	--volume="/etc/shadow:/etc/shadow:ro" \
 	--volume="/etc/sudoers.d:/etc/sudoers.d:ro" --name {{ project_name }}_container {{ project_name }}_docker_image /bin/bash
+
+clean:
+	rm buildingbits.py
+	rm .prospector.yaml
+	rm .gitignore
+	rm Dockerfile
+	rm Makefile.template
+	rm setup.py
