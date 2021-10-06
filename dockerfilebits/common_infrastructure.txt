@@ -20,3 +20,17 @@ RUN make clean
 RUN make buildingbits
 RUN make checks
 RUN make format
+
+# Project install procedure (pyproject.toml may have to be altered based on the way the project is built/installed)
+# -------------------------
+RUN python setup.py install
+# OR
+# RUN poetry install
+# OR
+# RUN python -m build
+# RUN pip install dist/{{ project_name }}-{{ project_version }}-py3-none-any.whl
+
+# By now, dependencies should have been installed and tests can be run
+RUN make tests_
+
+CMD /bin/bash

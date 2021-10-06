@@ -96,6 +96,12 @@ def do_template(tags: dict, template_name: str, output_file: str) -> None:
     trace(" ... done.", color=Colors.OKGREEN)
 
 
+def get_version():
+    with open('VERSION') as f:
+        v = f.read().strip()
+    return v
+
+
 if __name__ == "__main__":
     trace("******** .prospector.yaml ********", color=Colors.HEADER)
     if isfile(PROSPECTOR_YAML_FILENAME):
@@ -131,12 +137,14 @@ if __name__ == "__main__":
     trace("******** Find project name ********", color=Colors.HEADER)
     project_name = basename(os.getcwd())
     trace(f"Project name: {project_name}")
+    project_version = get_version()
+    trace(f"Project version: {project_version}")
 
     trace("******** Dockerfile from Dockerfile.template ********", color=Colors.HEADER)
     if isfile("Dockerfile.template"):
         dockerfile_tags = remote_tags(SUPPORTED_DOCKERFILE_KEYS, DOCKERFILEBITS_URL)
         do_template(dockerfile_tags, "Dockerfile.template", "Dockerfile")
-        tags_data = {"project_name": project_name}
+        tags_data = {"project_name": project_name, "project_version": project_version}
         do_template(tags_data, "Dockerfile", "Dockerfile")
     else:
         trace("No Dockerfile.template found. Is that intentional?", color=Colors.WARNING)
