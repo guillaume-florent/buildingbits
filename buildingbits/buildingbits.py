@@ -71,7 +71,7 @@ def download(url: str, file_name: str) -> None:
     with urllib.request.urlopen(url) as response, open(file_name, "wb") as out_file:
         data = response.read()  # a `bytes` object
         out_file.write(data)
-    trace(" ... done.")
+    trace(" ... done.", color=Colors.OKGREEN)
 
 
 def remote_tags(keys: list, url: str) -> dict:
@@ -86,12 +86,14 @@ def remote_tags(keys: list, url: str) -> dict:
 
 def do_template(tags: dict, template_name: str, output_file: str) -> None:
     r"""Perform templating."""
+    trace(f"Templating {template_name} to produce {output_file} ...")
     file_loader = FileSystemLoader(".")  # directory of template file
     env = Environment(loader=file_loader)
     template = env.get_template(template_name)  # load template file
     output = template.render(**tags)
     with open(output_file, "w", encoding="utf-8") as file_:
         file_.write(output)
+    trace(" ... done.", color=Colors.OKGREEN)
 
 
 if __name__ == "__main__":
