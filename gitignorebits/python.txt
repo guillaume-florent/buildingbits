@@ -4,4 +4,4 @@
 # build related
 /dist/
 /build/
-/pilot.egg-info/
+/{{ project_name }}.egg-info/

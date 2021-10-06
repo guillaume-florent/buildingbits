@@ -139,13 +139,13 @@ if __name__ == "__main__":
     trace(f"Project name: {project_name}")
     project_version = get_version()
     trace(f"Project version: {project_version}")
+    project_data = {"project_name": project_name, "project_version": project_version}
 
     trace("******** Dockerfile from Dockerfile.template ********", color=Colors.HEADER)
     if isfile("Dockerfile.template"):
         dockerfile_tags = remote_tags(SUPPORTED_DOCKERFILE_KEYS, DOCKERFILEBITS_URL)
         do_template(dockerfile_tags, "Dockerfile.template", "Dockerfile")
-        tags_data = {"project_name": project_name, "project_version": project_version}
-        do_template(tags_data, "Dockerfile", "Dockerfile")
+        do_template(project_data, "Dockerfile", "Dockerfile")
     else:
         trace("No Dockerfile.template found. Is that intentional?", color=Colors.WARNING)
 
@@ -153,12 +153,12 @@ if __name__ == "__main__":
     if isfile("gitignore.template"):
         gitignore_tags = remote_tags(SUPPORTED_GITIGNORE_KEYS, GITIGNOREBITS_URL)
         do_template(gitignore_tags, "gitignore.template", ".gitignore")
+        do_template(project_data, ".gitignore", ".gitignore")
     else:
         trace("No gitignore.template found. Is that intentional?", color=Colors.WARNING)
 
     trace("******** Makefile from (downloaded) Makefile.template ********", color=Colors.HEADER)
     if isfile("Makefile.template"):
-        tags_data = {"project_name": project_name}
-        do_template(tags_data, "Makefile.template", "Makefile")
+        do_template(project_data, "Makefile.template", "Makefile")
     else:
         trace("No Makefile.template found. How could that even happen?", color=Colors.FAIL)
