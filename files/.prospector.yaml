@@ -48,6 +48,8 @@ pep257:
   run: true
   disable:
     - D000
+    - D203
+    - D204
 
 # ---- Optionals ----
 

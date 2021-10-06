@@ -46,15 +46,15 @@ SUPPORTED_GITIGNORE_KEYS = [
 
 class Colors:
     r"""Colors and font effects definitions."""
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+    HEADER = "\033[95m"
+    OKBLUE = "\033[94m"
+    OKCYAN = "\033[96m"
+    OKGREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDC = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
 
 
 def trace(msg: str, color: Optional[str] = None):
@@ -101,7 +101,8 @@ if __name__ == "__main__":
     if isfile(PROSPECTOR_YAML_FILENAME):
         trace(f"{PROSPECTOR_YAML_FILENAME} exists and would be overwritten", color=Colors.WARNING)
         trace("Nothing done.", color=Colors.WARNING)
-        trace(f"Rename or remove the existing {PROSPECTOR_YAML_FILENAME} to have it replaced by the remote version.",
+        trace(f"Rename or remove the existing {PROSPECTOR_YAML_FILENAME} to have it replaced by "
+              f"the remote version.",
               color=Colors.OKBLUE)
     else:
         download(PROSPECTOR_YAML_URL, PROSPECTOR_YAML_FILENAME)
@@ -110,16 +111,19 @@ if __name__ == "__main__":
     if isfile(SETUP_PY_FILENAME):
         trace(f"{SETUP_PY_FILENAME} exists and would be overwritten", color=Colors.WARNING)
         trace("Nothing done.", color=Colors.WARNING)
-        trace(f"Rename or remove the existing {SETUP_PY_FILENAME} to have it replaced by the remote version.",
+        trace(f"Rename or remove the existing {SETUP_PY_FILENAME} to have it replaced by "
+              f"the remote version.",
               color=Colors.OKBLUE)
     else:
         download(SETUP_PY_URL, SETUP_PY_FILENAME)
 
     trace("******** Makefile.template ********", color=Colors.HEADER)
     if isfile(MAKEFILE_TEMPLATE_FILENAME):
-        trace(f"{MAKEFILE_TEMPLATE_FILENAME} exists and would be overwritten", color=Colors.WARNING)
+        trace(f"{MAKEFILE_TEMPLATE_FILENAME} exists and would be overwritten",
+              color=Colors.WARNING)
         trace("Nothing done.", color=Colors.WARNING)
-        trace(f"Rename or remove the existing {MAKEFILE_TEMPLATE_FILENAME} to have it replaced by the remote version.",
+        trace(f"Rename or remove the existing {MAKEFILE_TEMPLATE_FILENAME} to have it replaced "
+              f"by the remote version.",
               color=Colors.OKBLUE)
     else:
         download(MAKEFILE_TEMPLATE_URL, MAKEFILE_TEMPLATE_FILENAME)
