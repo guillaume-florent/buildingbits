@@ -128,10 +128,16 @@ if __name__ == "__main__":
     else:
         download(MAKEFILE_TEMPLATE_URL, MAKEFILE_TEMPLATE_FILENAME)
 
+    trace("******** Find project name ********", color=Colors.HEADER)
+    project_name = basename(os.getcwd())
+    trace(f"Project name: {project_name}")
+
     trace("******** Dockerfile from Dockerfile.template ********", color=Colors.HEADER)
     if isfile("Dockerfile.template"):
         dockerfile_tags = remote_tags(SUPPORTED_DOCKERFILE_KEYS, DOCKERFILEBITS_URL)
         do_template(dockerfile_tags, "Dockerfile.template", "Dockerfile")
+        tags_data = {"project_name": project_name}
+        do_template(tags_data, "Dockerfile", "Dockerfile")
     else:
         trace("No Dockerfile.template found. Is that intentional?", color=Colors.WARNING)
 
@@ -144,8 +150,6 @@ if __name__ == "__main__":
 
     trace("******** Makefile from (downloaded) Makefile.template ********", color=Colors.HEADER)
     if isfile("Makefile.template"):
-        project_name = basename(os.getcwd())
-        trace(f"Project name: {project_name}")
         tags_data = {"project_name": project_name}
         do_template(tags_data, "Makefile.template", "Makefile")
     else:

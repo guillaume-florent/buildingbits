@@ -10,3 +10,13 @@ RUN pip install prospector[with_everything]
 RUN pip install pytest pytest-cov pytest-benchmark[histogram] isort[colors] black hypothesis
 RUN pip install poetry
 RUN pip install build
+
+# Project
+# -------
+
+COPY . /opt/{{ project_name }}
+WORKDIR /opt/{{ project_name }}
+RUN make clean
+RUN make buildingbits
+RUN make checks
+RUN make format
