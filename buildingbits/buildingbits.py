@@ -26,21 +26,21 @@ MAKEFILE_TEMPLATE_URL = f"{FILES_URL}/{MAKEFILE_TEMPLATE_FILENAME}"
 
 # These should be in sync with the contents of the dockerfilebits folder
 SUPPORTED_DOCKERFILE_KEYS = [
-    "base",
-    "miniconda",
-    "occ_0.18",
-    "occ_7.5",
-    "common_infrastructure",
+    "dockerfilebits_base",
+    "dockerfilebits_miniconda",
+    "dockerfilebits_occ_0.18",
+    "dockerfilebits_occ_7.5",
+    "dockerfilebits_common_infrastructure",
 ]
 # These should be in sync with the contents of the gitignorebits folder
 SUPPORTED_GITIGNORE_KEYS = [
-    "generic",
-    "python",
-    "pycharm",
-    "pytest",
-    "pytest_cov",
-    "pytest_benchmark",
-    "mypy",
+    "gitignorebits_generic",
+    "gitignorebits_python",
+    "gitignorebits_pycharm",
+    "gitignorebits_pytest",
+    "gitignorebits_pytest_cov",
+    "gitignorebits_pytest_benchmark",
+    "gitignorebits_mypy",
 ]
 
 
