@@ -58,8 +58,8 @@ class Colors:
     WARNING = "\033[93m"
     FAIL = "\033[91m"
     ENDC = "\033[0m"
-    BOLD = "\033[1m"
-    UNDERLINE = "\033[4m"
+    # BOLD = "\033[1m"
+    # UNDERLINE = "\033[4m"
 
 
 def trace(msg: str, color: Optional[str] = None):
@@ -85,7 +85,8 @@ def remote_tags(keys: list, url: str) -> dict:
     tags_kv = {}
     for k in keys:
         trace(f"Reading : {url}/{k}.txt")
-        tags_kv[k] = urllib.request.urlopen(f"{url}/{k}.txt").read().decode("utf-8")
+        with urllib.request.urlopen(f"{url}/{k}.txt") as u:
+            tags_kv[k] = u.read().decode("utf-8")
     return tags_kv
 
 
@@ -102,7 +103,7 @@ def do_template(tags: dict, template_name: str, output_file: str) -> None:
 
 
 def get_version():
-    with open('VERSION') as f:
+    with open("VERSION", encoding="utf-8") as f:
         v = f.read().strip()
     return v
 
@@ -179,7 +180,8 @@ if __name__ == "__main__":
     else:
         trace("No Makefile.template found. How could that even happen?", color=Colors.FAIL)
 
-    trace("******** run_in_docker.sh from (downloaded) run_in_docker.sh ********", color=Colors.HEADER)
+    trace("******** run_in_docker.sh from (downloaded) run_in_docker.sh ********",
+          color=Colors.HEADER)
     if isfile(RUN_IN_DOCKER_FILENAME):
         do_template(project_data, RUN_IN_DOCKER_FILENAME, RUN_IN_DOCKER_FILENAME)
         trace("Making run_in_docker.sh executable ...", color=Colors.OKCYAN)
