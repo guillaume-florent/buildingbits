@@ -5,3 +5,4 @@
 /Makefile
 /Makefile.template
 /setup.py
+/run_in_docker.sh
