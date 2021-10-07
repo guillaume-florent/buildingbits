@@ -41,6 +41,7 @@ What does buildingbits.py do?
 * Download a *.prospector.yaml* file
 * Download a *setup.py* file that will allow pre-PEP 517/518 setups to work (requires a setup.cfg)
 * Download a Makefile template : *Makefile.template*
+* Download a *run_in_docker.sh* file (deals with UI and DISPLAY aspects when starting a container)
 * Create a *Dockerfile* using a project local *Dockerfile.template* file and the files in *buildingbits/dockerfilebits*.
 * Create a *.gitignore* using a project local *gitignore.template* and the files in *buildingbits/gitignorebits*
 * Create a *Makefile* from the downloaded *Makefile.template* and the local project info (project name)

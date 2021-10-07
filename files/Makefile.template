@@ -9,8 +9,8 @@ tests_:
 	pytest --cov={{ project_name }} --benchmark-autosave tests/
 
 ci_docker:
-	docker build -t {{ project_name }}_docker_image .
-	docker run -it --rm --name {{ project_name }}_docker_env {{ project_name }}_docker_image /bin/bash
+	docker build -t {{ project_name }}_image .
+	docker run -it --rm --name {{ project_name }}_container {{ project_name }}_image /bin/bash
 
 format:
 	- isort . --check --diff --color --profile black
@@ -20,18 +20,12 @@ checks:
 	- prospector
 	# Make sure the prospector options and profile are right
 
-username=${USER}
-user:=$(shell id -u)
-home=${HOME}
+# username=${USER}
+# user:=$(shell id -u)
+# home=${HOME}
 
-run_docker:
-	docker build -t {{ project_name }}_docker_image .
-	docker run -it --rm --user=${user} -e USER=${username} \
-	--volume="${home}:${home}" \
-	--volume="/etc/group:/etc/group:ro" \
-	--volume="/etc/passwd:/etc/passwd:ro" \
-	--volume="/etc/shadow:/etc/shadow:ro" \
-	--volume="/etc/sudoers.d:/etc/sudoers.d:ro" --name {{ project_name }}_container {{ project_name }}_docker_image /bin/bash
+run_in_docker:
+	./run_in_docker.sh
 
 clean:
 	rm buildingbits.py
@@ -40,3 +34,4 @@ clean:
 	rm Makefile.template
 	rm .gitignore
 	rm Dockerfile
+	rm run_in_docker.sh

@@ -4,6 +4,7 @@
 r"""Buildingbits script."""
 
 import os
+import stat
 import urllib.request
 from os.path import basename, isfile
 from typing import Optional
@@ -23,6 +24,9 @@ SETUP_PY_URL = f"{FILES_URL}/{SETUP_PY_FILENAME}"
 
 MAKEFILE_TEMPLATE_FILENAME = "Makefile.template"
 MAKEFILE_TEMPLATE_URL = f"{FILES_URL}/{MAKEFILE_TEMPLATE_FILENAME}"
+
+RUN_IN_DOCKER_FILENAME = "run_in_docker.sh"
+RUN_IN_DOCKER_URL = f"{FILES_URL}/{RUN_IN_DOCKER_FILENAME}"
 
 # These should be in sync with the contents of the dockerfilebits folder
 SUPPORTED_DOCKERFILE_KEYS = [
@@ -135,6 +139,17 @@ if __name__ == "__main__":
     else:
         download(MAKEFILE_TEMPLATE_URL, MAKEFILE_TEMPLATE_FILENAME)
 
+    trace("******** run_in_docker.sh ********", color=Colors.HEADER)
+    if isfile(RUN_IN_DOCKER_FILENAME):
+        trace(f"{RUN_IN_DOCKER_FILENAME} exists and would be overwritten",
+              color=Colors.WARNING)
+        trace("Nothing done.", color=Colors.WARNING)
+        trace(f"Rename or remove the existing {RUN_IN_DOCKER_FILENAME} to have it replaced "
+              f"by the remote version.",
+              color=Colors.OKBLUE)
+    else:
+        download(RUN_IN_DOCKER_URL, RUN_IN_DOCKER_FILENAME)
+
     trace("******** Find project name ********", color=Colors.HEADER)
     project_name = basename(os.getcwd())
     trace(f"Project name: {project_name}")
@@ -163,3 +178,13 @@ if __name__ == "__main__":
         do_template(project_data, "Makefile.template", "Makefile")
     else:
         trace("No Makefile.template found. How could that even happen?", color=Colors.FAIL)
+
+    trace("******** run_in_docker.sh from (downloaded) run_in_docker.sh ********", color=Colors.HEADER)
+    if isfile(RUN_IN_DOCKER_FILENAME):
+        do_template(project_data, RUN_IN_DOCKER_FILENAME, RUN_IN_DOCKER_FILENAME)
+        trace("Making run_in_docker.sh executable ...", color=Colors.OKCYAN)
+        st = os.stat(RUN_IN_DOCKER_FILENAME)
+        os.chmod(RUN_IN_DOCKER_FILENAME, st.st_mode | stat.S_IEXEC)
+        trace(" ... done.", color=Colors.OKGREEN)
+    else:
+        trace("No run_in_docker.sh found. How could that even happen?", color=Colors.FAIL)
