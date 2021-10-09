@@ -46,6 +46,7 @@ SUPPORTED_GITIGNORE_KEYS = [
     "gitignorebits_pytest_benchmark",
     "gitignorebits_mypy",
     "gitignorebits_buildingbits",
+    "gitignorebits_sphinx"
 ]
 
 

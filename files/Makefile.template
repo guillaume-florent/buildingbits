@@ -41,6 +41,9 @@ run_in_docker:
 changelog:
 	git log --oneline --decorate > docs/CHANGELOG.md
 
+doc:
+	sphinx-build -b html docs/SOURCE docs/BUILD
+
 clean:
 	rm buildingbits.py
 	rm .prospector.yaml

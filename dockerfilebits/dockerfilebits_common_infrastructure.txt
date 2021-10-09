@@ -18,6 +18,7 @@ COPY . /opt/{{ project_name }}
 WORKDIR /opt/{{ project_name }}
 RUN make clean
 RUN make buildingbits
+RUN make doc
 RUN make checks
 RUN make format
 RUN make install
