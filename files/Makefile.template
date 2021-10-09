@@ -23,7 +23,11 @@ ci_docker:
 
 format:
 	- isort . --check --diff --color --profile black
-	black . --diff --color
+	# black . --diff --color
+	black {{ project_name }} --diff --color
+	black bin --diff --color
+	black tests --diff --color
+	black examples --diff --color
 
 checks:
 	- prospector
