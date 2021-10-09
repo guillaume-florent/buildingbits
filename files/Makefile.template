@@ -4,6 +4,15 @@ buildingbits:
 	curl https://raw.githubusercontent.com/guillaume-florent/buildingbits/main/buildingbits/buildingbits.py > buildingbits.py
 	python buildingbits.py
 
+# Project install procedure (pyproject.toml may have to be altered based on the way the project is built/installed)
+install:
+	python setup.py install
+	# OR
+	# poetry install
+	# OR
+	# python -m build
+	# pip install dist/{{ project_name }}-{{ project_version }}-py3-none-any.whl
+
 # Obviously requires pytest to be installed
 tests_:
 	pytest --cov={{ project_name }} --benchmark-autosave tests/
