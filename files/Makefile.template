@@ -27,6 +27,11 @@ checks:
 run_in_docker:
 	./run_in_docker.sh
 
+# Poor man changelog generator
+# May change to commitizen, gitchangelog or a similar tool in the future
+changelog:
+	git log --oneline --decorate > CHANGELOG.md
+
 clean:
 	rm buildingbits.py
 	rm .prospector.yaml
