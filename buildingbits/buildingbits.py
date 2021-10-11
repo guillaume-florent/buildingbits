@@ -11,7 +11,7 @@ from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-VERSION = "0.3.1"
+VERSION = "0.3.2"
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
 FILES_URL = f"{URL}/files"
 DOCKERFILEBITS_URL = f"{URL}/dockerfilebits"
@@ -172,7 +172,8 @@ if __name__ == "__main__":
     trace("******** Dockerfile from Dockerfile.template ********", color=Colors.HEADER)
     if isfile("Dockerfile.template"):
         dockerfile_tags = remote_tags(SUPPORTED_DOCKERFILE_KEYS, DOCKERFILEBITS_URL)
-        do_template({**dockerfile_tags, **project_data, **buildingbits_info}, "Dockerfile.template", "Dockerfile")
+        do_template({**dockerfile_tags, **buildingbits_info}, "Dockerfile.template", "Dockerfile")
+        do_template(project_data, "Dockerfile", "Dockerfile")
     else:
         trace("No Dockerfile.template found. Is that intentional?", color=Colors.WARNING)
 
@@ -180,6 +181,7 @@ if __name__ == "__main__":
     if isfile("gitignore.template"):
         gitignore_tags = remote_tags(SUPPORTED_GITIGNORE_KEYS, GITIGNOREBITS_URL)
         do_template({**gitignore_tags, **buildingbits_info}, "gitignore.template", ".gitignore")
+        do_template(project_data, ".gitignore", ".gitignore")
     else:
         trace("No gitignore.template found. Is that intentional?", color=Colors.WARNING)
 
