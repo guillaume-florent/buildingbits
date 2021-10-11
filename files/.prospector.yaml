@@ -1,3 +1,5 @@
+# ******** This .prospector.yaml file has been downloaded by buildingbits v{{ buildingbits_version }} ********
+
 # This will enable almost every single warning
 
 ignore-patterns:

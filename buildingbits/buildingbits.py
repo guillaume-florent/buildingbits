@@ -11,6 +11,7 @@ from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader
 
+VERSION = "0.3.0"
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
 FILES_URL = f"{URL}/files"
 DOCKERFILEBITS_URL = f"{URL}/dockerfilebits"
@@ -46,7 +47,7 @@ SUPPORTED_GITIGNORE_KEYS = [
     "gitignorebits_pytest_benchmark",
     "gitignorebits_mypy",
     "gitignorebits_buildingbits",
-    "gitignorebits_sphinx"
+    "gitignorebits_sphinx",
 ]
 
 
@@ -110,6 +111,13 @@ def get_version():
 
 
 if __name__ == "__main__":
+
+    trace("**************************************", color=Colors.OKBLUE)
+    trace(f"******** buildingbits v{VERSION} ********", color=Colors.OKBLUE)
+    trace("**************************************", color=Colors.OKBLUE)
+
+    buildingbits_info = {"buildingbits_version": VERSION}
+
     trace("******** .prospector.yaml ********", color=Colors.HEADER)
     if isfile(PROSPECTOR_YAML_FILENAME):
         trace(f"{PROSPECTOR_YAML_FILENAME} exists and would be overwritten", color=Colors.WARNING)
@@ -119,6 +127,7 @@ if __name__ == "__main__":
               color=Colors.OKBLUE)
     else:
         download(PROSPECTOR_YAML_URL, PROSPECTOR_YAML_FILENAME)
+        do_template(buildingbits_info, ".prospector.yaml", ".prospector.yaml")
 
     trace("******** setup.py ********", color=Colors.HEADER)
     if isfile(SETUP_PY_FILENAME):
@@ -129,6 +138,7 @@ if __name__ == "__main__":
               color=Colors.OKBLUE)
     else:
         download(SETUP_PY_URL, SETUP_PY_FILENAME)
+        do_template(buildingbits_info, SETUP_PY_FILENAME, SETUP_PY_FILENAME)
 
     trace("******** Makefile.template ********", color=Colors.HEADER)
     if isfile(MAKEFILE_TEMPLATE_FILENAME):
@@ -178,6 +188,7 @@ if __name__ == "__main__":
     trace("******** Makefile from (downloaded) Makefile.template ********", color=Colors.HEADER)
     if isfile("Makefile.template"):
         do_template(project_data, "Makefile.template", "Makefile")
+        do_template(buildingbits_info, "Makefile", "Makefile")
     else:
         trace("No Makefile.template found. How could that even happen?", color=Colors.FAIL)
 
@@ -185,6 +196,7 @@ if __name__ == "__main__":
           color=Colors.HEADER)
     if isfile(RUN_IN_DOCKER_FILENAME):
         do_template(project_data, RUN_IN_DOCKER_FILENAME, RUN_IN_DOCKER_FILENAME)
+        do_template(buildingbits_info, RUN_IN_DOCKER_FILENAME, RUN_IN_DOCKER_FILENAME)
         trace("Making run_in_docker.sh executable ...", color=Colors.OKCYAN)
         st = os.stat(RUN_IN_DOCKER_FILENAME)
         os.chmod(RUN_IN_DOCKER_FILENAME, st.st_mode | stat.S_IEXEC)

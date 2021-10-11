@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ******** This run_in_docker.sh file has been downloaded and templated by buildingbits v{{ buildingbits_version }} ********
 
 XAUTH=${XAUTHORITY:-$HOME/.Xauthority}
 DOCKER_XAUTHORITY=${XAUTH}.docker

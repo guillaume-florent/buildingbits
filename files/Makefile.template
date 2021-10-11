@@ -1,3 +1,5 @@
+# ******** This Makefile file has been created by buildingbits v{{ buildingbits_version }} from the downloaded Makefile.template ********
+
 # Make sure no target has the same name as a folder (docs, tests, examples, bin, data ...)
 
 buildingbits:
