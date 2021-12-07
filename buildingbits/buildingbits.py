@@ -11,7 +11,7 @@ from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-VERSION = "0.4.0"
+VERSION = "0.4.1"
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
 FILES_URL = f"{URL}/files"
 DOCKERFILEBITS_URL = f"{URL}/dockerfilebits"
