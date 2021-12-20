@@ -11,7 +11,7 @@ from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-VERSION = "0.5.2"
+VERSION = "0.5.3"
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
 FILES_URL = f"{URL}/files"
 DOCKERFILEBITS_URL = f"{URL}/dockerfilebits"
@@ -33,8 +33,8 @@ RUN_IN_DOCKER_URL = f"{FILES_URL}/{RUN_IN_DOCKER_FILENAME}"
 SUPPORTED_DOCKERFILE_KEYS = [
     "dockerfilebits_base",
     "dockerfilebits_miniconda",
-    "dockerfilebits_occ_0-18",
-    "dockerfilebits_occ_7-5",
+    "dockerfilebits_occ_0_18",
+    "dockerfilebits_occ_7_5",
     "dockerfilebits_common_infrastructure",
     "dockerfilebits_compile_c",
     "dockerfilebits_compile_cpp",
