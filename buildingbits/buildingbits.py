@@ -11,7 +11,7 @@ from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-VERSION = "0.5.0"
+VERSION = "0.5.1"
 URL = "https://raw.githubusercontent.com/guillaume-florent/buildingbits/main"
 FILES_URL = f"{URL}/files"
 DOCKERFILEBITS_URL = f"{URL}/dockerfilebits"
@@ -40,7 +40,7 @@ SUPPORTED_DOCKERFILE_KEYS = [
     "dockerfilebits_compile_cpp",
     "dockerfilebits_compile_fortran",
     "dockerfilebits_libraries_wx",
-    "dockerfilebits_compile_tz",
+    "dockerfilebits_tz",
 ]
 # These should be in sync with the contents of the gitignorebits folder
 SUPPORTED_GITIGNORE_KEYS = [
